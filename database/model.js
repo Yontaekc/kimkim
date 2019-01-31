@@ -1,11 +1,13 @@
 const { Pool, Client } = require("pg");
 const cliet = new Client();
+require("dotenv").config();
 
+console.log(process.env.DB_HOST);
 const pool = new Pool({
-  host: "localhost",
+  host: process.env.DB_HOST,
   database: "kimkimdb",
-  user: "yontechnology",
-  password: "qlqjs797"
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS
 });
 
 const connect = "postgres://";
