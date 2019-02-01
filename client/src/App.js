@@ -21,7 +21,7 @@ class App extends React.Component {
             <Route exact path="/trip-plans/:id/edit" component={EditTrip} />
             <Route exact path="/day/:id" component={DayDetails} />
             <Route exact path="/day/:id/edit" component={EditDay} />
-            <Route exact path="/trip-plans/:id" component={ViewTrip} />
+            <Route exact path="/view-plan/:id" component={ViewTrip} />
           </div>
         </div>
       </Router>

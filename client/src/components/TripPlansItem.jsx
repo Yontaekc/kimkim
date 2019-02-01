@@ -6,7 +6,7 @@ const TripPlansItem = ({ id, title, summary, onDeleteClick }) => {
     <div className="card card-body bg-light mb-3">
       <div className="row">
         <div className="col-10">
-          <Link to={`/trip-plans/${id}`}>
+          <Link to={`/view-plan/${id}`}>
             <h3>{title}</h3>
           </Link>
           <h5>{summary}</h5>
