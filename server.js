@@ -9,7 +9,6 @@ app.use(
     extended: true
   })
 );
-// app.use(express.static(__dirname + "/client/public"));
 
 db.createTables();
 
