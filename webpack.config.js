@@ -4,7 +4,11 @@ module.exports = {
   entry: "./client/src/index.jsx",
   output: {
     path: path.join(__dirname, "/client/public/dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    publicPath: "/"
+  },
+  devServer: {
+    historyApiFallback: true
   },
   module: {
     rules: [

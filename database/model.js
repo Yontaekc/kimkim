@@ -19,44 +19,48 @@ pool.on("error", err => {
   console.error("An idle client has experienced an error", err.stack);
 });
 
-const createTables = () => {
-  const queryText = `CREATE TABLE IF NOT EXISTS
-      reflections(
-        id UUID PRIMARY KEY,
-        success VARCHAR(128) NOT NULL,
-        low_point VARCHAR(128) NOT NULL,
-        take_away VARCHAR(128) NOT NULL,
-        created_date TIMESTAMP,
-        modified_date TIMESTAMP
+const createTripPlans = () => {
+  const trip_plans_query = `CREATE TABLE IF NOT EXISTS
+      trip_plans(
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        summary TEXT NOT NULL,
+        created_at TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP NOT NULL
       )`;
 
   pool
-    .query(queryText)
+    .query(trip_plans_query)
     .then(res => {
       console.log(res);
-      pool.end();
     })
     .catch(err => {
       console.log(err);
-      pool.end();
     });
 };
 
-const dropTables = () => {
-  const queryText = "DROP TABLE IF EXISTS reflections";
+const createDays = () => {
+  const days_query = `CREATE TABLE IF NOT EXISTS
+      days(
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT NOT NULL,
+        created_at TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP NOT NULL,
+        trip_plan_id INTEGER REFERENCES trip_plans (id)
+      )`;
+
   pool
-    .query(queryText)
+    .query(days_query)
     .then(res => {
       console.log(res);
-      pool.end();
     })
     .catch(err => {
       console.log(err);
-      pool.end();
     });
 };
 
 module.exports = {
-  createTables,
-  dropTables
+  createTripPlans,
+  createDays
 };
