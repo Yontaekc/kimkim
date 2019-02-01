@@ -14,6 +14,28 @@ app.use(
 db.createTripPlans();
 db.createDays();
 
+app.get("/trip/all", db.getAllTrips);
+
+app.get("/trip/:id", db.getTripById);
+
+app.get("/days/:id", db.getDayById);
+
+app.get("/days/:id/all", db.getAllDaysById);
+
+app.get("/view/:id", db.viewTripById);
+
+app.post("/trip", db.createTrip);
+
+app.post("/days/:id", db.createDay);
+
+app.put("/trip/:id", db.editTrip);
+
+app.put("/days/:id", db.editDayById);
+
+app.delete("/trip/:id", db.deleteTrip);
+
+app.delete("/days/:id", db.deleteDayById);
+
 app.listen(5000, () => {
   console.log("listening to port 5000");
 });

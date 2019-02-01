@@ -2,23 +2,23 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import TripPlansItem from "./TripPlansItem.jsx";
+import DaysItem from "./DaysItem.jsx";
 
-class TripPlans extends Component {
+class Days extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      trips: []
+      days: []
     };
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   componentDidMount() {
     axios
-      .get("/trip/all")
+      .get(`/days/${this.props.id}/all`)
       .then(res =>
         this.setState({
-          trips: res.data
+          days: res.data
         })
       )
       .catch(err => console.log(err));
@@ -26,10 +26,10 @@ class TripPlans extends Component {
 
   componentDidUpdate() {
     axios
-      .get("/trip/all")
+      .get(`/days/${this.props.id}/all`)
       .then(res =>
         this.setState({
-          trips: res.data
+          days: res.data
         })
       )
       .catch(err => console.log(err));
@@ -37,26 +37,27 @@ class TripPlans extends Component {
 
   onDeleteClick(id) {
     axios
-      .delete(`/trip/${id}`)
+      .delete(`/days/${id}`)
       .then(res => console.log(res.data + `${id} deleted`))
       .catch(err => console.log(err));
   }
 
   render() {
-    let tripItem;
+    let dayItem;
 
-    if (this.state.trips.length > 0) {
-      tripItem = this.state.trips.map(trip => (
-        <TripPlansItem
-          key={trip.id}
-          title={trip.title}
-          summary={trip.summary}
-          id={trip.id}
+    if (this.state.days.length > 0) {
+      dayItem = this.state.days.map(day => (
+        <DaysItem
+          key={day.id}
+          tripId={day.trip_plan_id}
+          title={day.title}
+          description={day.description}
+          id={day.id}
           onDeleteClick={this.onDeleteClick}
         />
       ));
     } else {
-      tripItem = <h4>No Trip Plans Found</h4>;
+      dayItem = <h4>You do not have plan for any day</h4>;
     }
 
     return (
@@ -64,9 +65,9 @@ class TripPlans extends Component {
         <div className="row">
           <div className="col-md-12">
             <div />
-            <h1 className="display-4 text-center">Trip Plans</h1>
-            <Link to={"/trip-plans/new"}>add new trip</Link>
-            {tripItem}
+            <h1 className="display-4 text-center">Days</h1>
+            {dayItem}
+            <Link to={`/day/${this.props.id}`}>Add Day</Link>
           </div>
         </div>
       </div>
@@ -74,4 +75,4 @@ class TripPlans extends Component {
   }
 }
 
-export default TripPlans;
+export default Days;
