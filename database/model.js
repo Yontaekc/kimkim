@@ -42,6 +42,24 @@ const createDays = () => {
     });
 };
 
+const createTables = () => {
+  pool
+    .query(queries.createTripTableQuery)
+    .then(res => {
+      return pool
+        .query(queries.createDaysTableQuery)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 const createTrip = (request, response) => {
   const time = new Date().toLocaleString();
   const { title, summary } = request.body;
@@ -196,8 +214,7 @@ const viewTripById = (request, response) => {
 };
 
 module.exports = {
-  createTripPlans,
-  createDays,
+  createTables,
   createTrip,
   createDay,
   editTrip,

@@ -11,8 +11,7 @@ app.use(
 );
 // app.use(express.static(__dirname + "/client/public"));
 
-db.createTripPlans();
-db.createDays();
+db.createTables();
 
 app.get("/trip/all", db.getAllTrips);
 
