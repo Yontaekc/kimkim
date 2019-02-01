@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const pool = new Pool({
   host: process.env.DB_HOST,
-  database: "kimkimdb",
+  database: process.env.DB_DATABASE,
   user: process.env.DB_USER,
   password: process.env.DB_PASS
 });
